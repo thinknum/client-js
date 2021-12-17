@@ -8,6 +8,12 @@ Thinknum JS API
 An API client for Thinknum Alternative Data written in Typescript.
 </p>
 
+<div> 
+<a href="https://www.npmjs.com/package/@thinknum/client-js"><img src="https://img.shields.io/npm/v/@thinknum/client-js" alt="@thinknum/client-js"></a>
+<a href="https://unpkg.com/@thinknum/client-js"><img src="https://img.badgesize.io/https://unpkg.com/@thinknum/client-js@0.1.0/dist/index.js?compression=gzip" alt="gzip size"></a>
+<a href="https://unpkg.com/@thinknum/client-js"><img src="https://img.badgesize.io/https://unpkg.com/@thinknum/client-js@0.1.0/dist/index.js?compression=brotli" alt="brotli size"></a>
+</div>
+
 ## 💎 Thinknum
 
 As companies move their business operations to the Internet, new data trails are being created that can provide unique insights on these companies. Thinknum Alternative Data indexes all of these data trails in one platform, providing investors with critical data points that others miss.
