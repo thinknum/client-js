@@ -1,0 +1,45 @@
+{
+  "name": "@thinknum/client-js",
+  "version": "0.1.0",
+  "description": "An API client for Thinknum Alternative Data written in Typescript",
+  "main": "dist/index.js",
+  "module": "dist/index.m.js",
+  "types": "dist/index.d.ts",
+  "umd:main": "dist/index.umd.js",
+  "source": "src/index.ts",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:thinknum/client-js.git"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
+  "scripts": {
+    "build": "rm -rf dist && microbundle  --tsconfig tsconfig.json",
+    "dev": "microbundle watch --tsconfig tsconfig.json",
+    "test": "jest"
+  },
+  "keywords": [
+    "alternative data",
+    "thinknum",
+    "typescript",
+    "api",
+    "client"
+  ],
+  "author": "Thinknum <customersuccess@thinknum.com>",
+  "license": "ISC",
+  "files": [
+    "src",
+    "dist"
+  ],
+  "dependencies": {
+    "isomorphic-unfetch": "3.1.0",
+    "querystringify": "2.2.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^27.0.3",
+    "jest": "^27.4.5",
+    "microbundle": "0.14.2",
+    "nock": "^13.2.1"
+  }
+}

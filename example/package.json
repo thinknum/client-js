@@ -1,0 +1,15 @@
+{
+  "name": "thinknum-client-js-example",
+  "version": "1.0.0",
+  "description": "Example project with Thinknum API library",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "Thinknum <customersuccess@thinknum.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@thinknum/client-js": "^0.1.0"
+  }
+}
