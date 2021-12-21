@@ -3,10 +3,20 @@
   "version": "0.1.2",
   "description": "An API client for Thinknum Alternative Data written in Typescript",
   "main": "dist/index.js",
-  "module": "dist/index.m.js",
-  "types": "dist/src/index.d.ts",
-  "umd:main": "dist/index.umd.js",
+  "module": "dist/index.module.js",
   "source": "src/index.ts",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "deno": "./src/index.ts",
+      "browser": "./dist/index.module.js",
+      "require": "./dist/index.js",
+      "import": "./dist/index.mjs",
+      "default": "./dist/index.module.js"
+    },
+    "./package.json": "./package.json",
+    "./": "./"
+  },
   "repository": {
     "type": "git",
     "url": "git@github.com:thinknum/client-js.git"
@@ -15,9 +25,11 @@
     "registry": "https://registry.npmjs.org/"
   },
   "scripts": {
-    "build": "rm -rf dist && microbundle  --tsconfig tsconfig.json",
-    "dev": "microbundle watch --tsconfig tsconfig.json",
-    "test": "jest"
+    "prepack": "npm run build",
+    "prebuild": "npm run clean",
+    "build": "microbundle --format es,cjs --define PACKAGE_VERSION=$npm_package_version",
+    "postbuild": "shx cp dist/index.module.js dist/index.mjs",
+    "clean": "shx rm -rf dist && shx rm -f thinknum-client-js-*.tgz && shx rm -rf coverage"
   },
   "keywords": [
     "alternative data",
@@ -38,8 +50,10 @@
   },
   "devDependencies": {
     "@types/jest": "^27.0.3",
+    "@types/querystringify": "^2.0.0",
     "jest": "^27.4.5",
     "microbundle": "0.14.2",
-    "nock": "^13.2.1"
+    "nock": "^13.2.1",
+    "shx": "^0.3.3"
   }
 }

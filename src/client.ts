@@ -1,6 +1,5 @@
 import fetch from "isomorphic-unfetch";
 import qs from "querystringify";
-import {version} from "../package.json";
 import {
   IDatasetListResponse,
   IDatasetMetadataResponse,
@@ -19,7 +18,8 @@ export class Client {
   private clientId: string;
   private clientSecret: string;
   private token: string | undefined;
-  private userAgent = "Javascript API v" + version;
+  // @ts-ignore
+  private userAgent = "Javascript API v" + PACKAGE_VERSION;
 
   constructor(config: IClientCredentials) {
     if (!config.clientId || config.clientId.length === 0) {
@@ -68,8 +68,8 @@ export class Client {
 
     const result = await fetch(url, {...init, headers});
     if (result.ok) {
-      if (init.method === "HEAD") {
-        return Promise.resolve({data: undefined, status: result.status});
+      if (init?.method === "HEAD") {
+        return Promise.resolve({data: undefined as any, status: result.status});
       } else {
         return result
           .json()
@@ -87,11 +87,9 @@ export class Client {
       .json()
       .then((dict) => {
         const message = dict["message"];
-        if (message) {
-          return Promise.reject(new Error(message));
-        }
+        return Promise.reject(new Error(message));
       })
-      .catch(async (error) => {
+      .catch(async () => {
         const message = (await result.text()) || result.statusText;
         return Promise.reject(new Error(message));
       });

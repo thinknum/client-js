@@ -79,7 +79,7 @@ export class Query {
 
   public addTicker(ticker: string) {
     if (!ticker || ticker.trim().length === 0) {
-      return Promise.reject(new Error("Missing or invalid ticker"));
+      new Error("Missing or invalid ticker");
     }
 
     this.tickers.push(ticker);
