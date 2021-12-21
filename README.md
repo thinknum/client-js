@@ -71,6 +71,29 @@ You can also search for tickers of particular dataset
 const tickers = await client.getTickerList("tesla", "job_listings");
 ```
 
+### Stock price API
+
+You can get stock price for specific ticker.
+
+```js
+const priceData = await client.getStockPrice("nasdaq:aapl");
+```
+
+You can also get price for crypto coins.
+
+```js
+const priceData = await client.getStockPrice("blockchain:eos");
+```
+
+You can specify history range.
+
+```js
+const priceData = await client.getStockPrice("nasdaq:aapl", {
+  startDate: "2021-11-01",
+  endDate: "2021-12-31",
+});
+```
+
 ### Query
 
 Initialize `Query` with client object or API credentials.

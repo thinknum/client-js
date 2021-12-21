@@ -3,6 +3,7 @@ import {IQuerySort, QueryFormat} from "./common";
 import {ICompanyWithEntities} from "./datasetCompaniesEntities";
 import {QueryOption, QueryRow} from "./datasetQueries";
 import {DatasetField, IDatasetPreset, IFunctionsMetadata} from "./datasets";
+import {IStockOverlayData} from "./stock";
 
 export interface IDatasetListResponse {
   datasets: IDataset[];
@@ -62,4 +63,9 @@ export interface ITableFetchQueryResponse extends IFetchQueryResponse {
   rows: QueryRow[];
   group_fields: DatasetField[];
   sort_fields: IQuerySort[];
+}
+
+export interface IStockOverlayFetchResponse {
+  count: number;
+  results: IStockOverlayData;
 }

@@ -10,6 +10,10 @@ export class Paths {
     return this.BASE_URL + `/datasets/${datasetId}/tickers/`;
   }
   static tickers = this.BASE_URL + "/tickers/";
+  static stock(ticker: string) {
+    return this.BASE_URL + "/companies/stock/" + ticker;
+  }
+
   static query(datasetId: string) {
     return this.BASE_URL + `/datasets/${datasetId}/query/`;
   }

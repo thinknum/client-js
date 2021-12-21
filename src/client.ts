@@ -4,9 +4,11 @@ import {version} from "../package.json";
 import {
   IDatasetListResponse,
   IDatasetMetadataResponse,
+  IStockOverlayFetchResponse,
   ITickersResponse,
 } from "./dataTypes/response";
 import {Paths} from "./paths";
+import {validateRangeDateFormat} from "./utils";
 
 export interface IClientCredentials {
   clientId: string;
@@ -149,6 +151,49 @@ export class Client {
 
     return promise.then((data) => {
       return data.queries[searchQuery];
+    });
+  }
+
+  /* Stock API
+  -------------------------------------------------------------------------*/
+
+  public async getStockPrice(ticker: string, range?: {startDate: string; endDate: string}) {
+    if (!ticker || ticker.trim().length === 0) {
+      return Promise.reject(new Error("Missing or invalid ticker"));
+    }
+
+    if (range) {
+      const hasStartDate = range.startDate && range.startDate.length > 0;
+      const hasEndDate = range.endDate && range.endDate.length > 0;
+
+      if (!hasStartDate || !hasEndDate) {
+        return Promise.reject(
+          new Error("Both startDate and endDate are required when specifying range."),
+        );
+      }
+
+      if (!validateRangeDateFormat(range.startDate)) {
+        return Promise.reject(new Error("Invalid startDate format. Please use YYYY-MM-DD format."));
+      }
+
+      if (!validateRangeDateFormat(range.endDate)) {
+        return Promise.reject(new Error("Invalid endDate format. Please use YYYY-MM-DD format."));
+      }
+    }
+
+    const data: {start_date?: string; end_date?: string} = {};
+    if (range?.startDate) {
+      data.start_date = range.startDate;
+    }
+    if (range?.endDate) {
+      data.end_date = range.endDate;
+    }
+
+    return this.requestData<IStockOverlayFetchResponse>(Paths.stock(ticker.trim()), {
+      method: "POST",
+      body: JSON.stringify(data),
+    }).then((data) => {
+      return data.results;
     });
   }
 }
