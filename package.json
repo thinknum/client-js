@@ -1,10 +1,10 @@
 {
   "name": "@thinknum/client-js",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "An API client for Thinknum Alternative Data written in Typescript",
   "main": "dist/index.js",
   "module": "dist/index.m.js",
-  "types": "dist/index.d.ts",
+  "types": "dist/src/index.d.ts",
   "umd:main": "dist/index.umd.js",
   "source": "src/index.ts",
   "repository": {
