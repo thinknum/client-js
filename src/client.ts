@@ -1,6 +1,7 @@
 import fetch from "isomorphic-unfetch";
 import qs from "querystringify";
 import {
+  IDataset,
   IDatasetListResponse,
   IDatasetMetadataResponse,
   IStockOverlayFetchResponse,
@@ -104,8 +105,10 @@ export class Client {
   /* Miscellaneous API
   -------------------------------------------------------------------------*/
 
-  public async getDatasetList(): Promise<IDatasetListResponse> {
-    return this.requestData<IDatasetListResponse>(Paths.datasets);
+  public async getDatasetList(): Promise<IDataset[]> {
+    return this.requestData<IDatasetListResponse>(Paths.datasets).then((data) => {
+      return data.datasets;
+    });
   }
 
   public async getDatasetMetadata(datasetId: string): Promise<IDatasetMetadataResponse> {
@@ -116,7 +119,7 @@ export class Client {
     return this.requestData<IDatasetMetadataResponse>(Paths.datasetMetadata(datasetId.trim()));
   }
 
-  public async getTickerDatasetList(ticker: string): Promise<IDatasetListResponse> {
+  public async getTickerDatasetList(ticker: string): Promise<IDataset[]> {
     if (!ticker || ticker.trim().length === 0) {
       return Promise.reject(new Error("Missing or invalid ticker"));
     }
@@ -124,7 +127,11 @@ export class Client {
     const params = {
       ticker: ticker.trim(),
     };
-    return this.requestData(Paths.datasets + qs.stringify(params, "?"));
+    return this.requestData<IDatasetListResponse>(Paths.datasets + qs.stringify(params, "?")).then(
+      (data) => {
+        return data.datasets;
+      },
+    );
   }
 
   public async getTickerList(query: string, datasetId?: string) {
